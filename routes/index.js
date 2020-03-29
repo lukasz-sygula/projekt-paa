@@ -17,3 +17,7 @@ router.get('/json', async (ctx, next) => {
 })
 
 module.exports = router
+const store = require('../router.get('/', async (ctx, next) => {
+  tasks = await store.listTasks()
+  await ctx.render('index', { tasks })
+})
