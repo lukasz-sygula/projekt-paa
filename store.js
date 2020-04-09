@@ -18,9 +18,11 @@ const createTask = async (title) => (
       PartitionKey: generator.String('task'),
       RowKey: generator.String(uuid.v4()),
       title
-    }service.createTableIfNotExists(table, (error, result, response) => {
+    }
+
+    service.insertEntity(table, task, (error, result, response) => {
       !error ? resolve() : reject()
-    })      insertEntity(table, task
+    })
   })
 )
 
@@ -43,3 +45,4 @@ module.exports = {
   createTask,
   listTasks
 }
+
