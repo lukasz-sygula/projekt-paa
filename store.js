@@ -2,6 +2,7 @@ const storage = require('azure-storage')
 const service = storage.createTableService()
 const table = 'tasks'
 const uuid = require('uuid')
+
 const init = async () => (
   new Promise((resolve, reject) => {
     service.createTableIfNotExists(table, (error, result, response) => {
@@ -17,13 +18,12 @@ const createTask = async (title) => (
       PartitionKey: generator.String('task'),
       RowKey: generator.String(uuid.v4()),
       title
-    }
-
-    service.insertEntity(table, task, (error, result, response) => {
+    }service.createTableIfNotExists(table, (error, result, response) => {
       !error ? resolve() : reject()
-    })
+    })      insertEntity(table, task
   })
 )
+
 const listTasks = async () => (
   new Promise((resolve, reject) => {
     const query = new storage.TableQuery()
@@ -37,6 +37,7 @@ const listTasks = async () => (
     })
   })
 )
+
 module.exports = {
   init,
   createTask,
